@@ -5,13 +5,11 @@ const constants = require('../constants')
 const FIRST_ADMIN_EMAIL = process.env.FIRST_ADMIN_EMAIL;
 
 const userSchema =  new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: 'First name is required'
+  coordinates: {
+    type: String
   },
-  surname: {
+  type: {
     type: String,
-    required: 'Surname is required'
   },
   photoPath: {
     type: String
