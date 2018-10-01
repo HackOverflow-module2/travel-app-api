@@ -9,8 +9,11 @@ const session = require('express-session');
 const cors = require('cors');
 
 require('./config/db.config');
+require('./config/passport.config').setup(passport);
+require('dotenv').config();
 
 const usersRouter = require('./routes/users.routes');
+const sessionsRouter = require('./routes/sessions.routes');
 
 const app = express();
 
@@ -20,7 +23,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: process.env.COOKIE_SECRET || 'Super Secret',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    maxAge: 2419200000
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/users', usersRouter);
+app.use('/sessions', sessionsRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
