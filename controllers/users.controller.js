@@ -24,7 +24,6 @@ module.exports.detail = (req, res, next) => {
   User.findById(req.params.id)
     .then(user => {
       if(!user){
-        console.log('entra en el not found')
         throw createError(404, 'User not found');
       } else {
         res.json(user)
