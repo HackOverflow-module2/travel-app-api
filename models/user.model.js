@@ -28,7 +28,7 @@ const userSchema =  new mongoose.Schema({
   points: {
     type: Number
   },
-  interests: [{
+  tags: [{
     type: String
   }],
   role: {

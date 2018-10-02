@@ -24,7 +24,7 @@ const pointOfInterest =  new mongoose.Schema({
     type: [String],
     default: []
   },
-  interests: {
+  tags: {
     type: [String],
     default: []
   },
