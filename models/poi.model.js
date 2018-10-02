@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const pointOfInterest =  new mongoose.Schema({
+const pointOfInterestSchema = new mongoose.Schema({
   latitude: {
     type: Number,
-    required: 'Lattitude is required'
+    required: 'Latitude is required'
   },
   longitude: {
     type: Number,

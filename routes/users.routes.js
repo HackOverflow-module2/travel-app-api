@@ -7,7 +7,7 @@ router.post('/', users.create);
 router.get('/:id', authMiddleware.isAuthenticated, users.detail);
 
 router.post(
-'/:id/edit',
+'/:id',
 //insert middlewares here- authenticated, owner and photo upload
 users.edit
 );

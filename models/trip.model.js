@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
- const tripSchema =  new mongoose.Schema({
+ const tripSchema = new mongoose.Schema({
   originCity: {
     type: String,
     required: 'Origin city is required'
@@ -36,7 +36,7 @@ const mongoose = require('mongoose');
     type: [String],
     default: []
   },
-  interests: {
+  tags: {
     type: [String],
     default: []
   },

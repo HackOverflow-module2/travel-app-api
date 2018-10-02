@@ -10,7 +10,9 @@ module.exports.create = (req, res, next) => {
       } else {
         user = new User(req.body);
         user.save()
-          .then(user => res.status(201).json(user))
+          .then(user => {
+            res.status(201).json(user)
+          })
           .catch(error => {
             next(error)
           });
