@@ -7,13 +7,13 @@ const FIRST_ADMIN_EMAIL = process.env.FIRST_ADMIN_EMAIL;
 const userSchema =  new mongoose.Schema({
   firstName: {
     type: String,
-    required: 'First name is required'
+    required: "name is required"
   },
   surname: {
     type: String,
-    required: 'Surname is required'
+    required: "surname is required"
   },
-  photoPath: {
+  image: {
     type: String
   },
   email: {
@@ -28,7 +28,7 @@ const userSchema =  new mongoose.Schema({
   points: {
     type: Number
   },
-  interests: [{
+  tags: [{
     type: String
   }],
   role: {
