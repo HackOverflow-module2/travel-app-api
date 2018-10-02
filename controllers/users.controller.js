@@ -53,7 +53,8 @@ module.exports.edit = (req, res, next) => {
         Object.assign(user, {
           firstName: req.body.firstName,
           surname: req.body.surname,
-          password: req.body.password
+          password: req.body.password,
+          image: req.body.image
         });
 
         user.save()
