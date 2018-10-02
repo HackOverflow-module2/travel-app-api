@@ -22,9 +22,16 @@ module.exports.create = (req, res, next) => {
 
 module.exports.detail = (req, res, next) => {
   User.findById(req.params.id)
-    .then(user => res.json(user))
+    .then(user => {
+      if(!user){
+        console.log('entra en el not found')
+        throw createError(404, 'User not found');
+      } else {
+        res.json(user)
+      }
+    })
     .catch(error => next(error));
-}
+  }
 
 module.exports.edit = (req, res, next) => {
 
