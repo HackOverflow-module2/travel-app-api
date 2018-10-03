@@ -9,6 +9,11 @@ module.exports.create = (req, res, next) => {
         throw createError(409, `User with email ${req.body.email} already exists`);
       } else {
         user = new User(req.body);
+
+        if (req.files) {
+          user.image = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+        }
+
         user.save()
           .then(user => res.status(201).json(user))
           .catch(error => {

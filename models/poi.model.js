@@ -9,7 +9,7 @@ const pointOfInterest =  new mongoose.Schema({
     type: Number,
     required: 'Longitude is required'
   },
-  type: {
+  poiType: {
     type: [String],
     default: []
   },
