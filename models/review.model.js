@@ -36,4 +36,4 @@ const reviewSchema =  new mongoose.Schema({
 
 
 const review = mongoose.model('Review', reviewSchema);
-module.exports = pointOfInterest; 
+module.exports = review; 
