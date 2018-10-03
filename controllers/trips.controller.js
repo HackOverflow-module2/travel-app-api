@@ -1,15 +1,42 @@
 const Trip = require('../models/trip.model');
+const Tripint = require('../models/tripPoint.model');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {    
-    const trip = new Trip(req.body);
-    trip.save()
-        .then(trip => {
-            res.status(201).json(trip);
+    const trip = new Trip({
+        originPlace: req.body.originPlace,
+        destinationPlace:req.body.destinationPlace,
+        originLocation: req.body.originLocation,
+        destionationLocation: req.body.destionationLocation,
+        name: req.body.name,
+        gallery: req.file,
+        tags: req.body.tags,
+        user: req.user._id
+    });
+
+    const tripPoints = req.body.pointOfInteres.map(poi => {
+        new Trip({
+            trip: req.body._id,
+            pointOfInteres: poi._id
+        })
+    })
+   
+    const tripPromise = trip.save();
+    const tripPointsPromise = tripPoints.map(tripPoint => {
+        tripPoint.save();
+    })
+
+    const allThePromises = tripPointsPromise.unshift(tripPromise);
+
+    Promise.all(allThePromises)
+        .then(results => {
+            res.status(201).json(results[0]);
         })
         .catch(error => next(error));
 }
+
+
 
 module.exports.detail = (req, res, next) => {
     User.findById(req.params.id)
@@ -17,7 +44,15 @@ module.exports.detail = (req, res, next) => {
         if(!trip){
           throw createError(404, 'User not found');
         } else {
-          res.json(trip);
+            const t = trip;
+            TripPoint.find( {trip: t} )
+            .populate('pointOfInterest')
+                .then(tripPoints => {
+                  const points = tripPoints
+                  .map(tripPoint => tripPoint.point);
+                })
+                .catch(error => next(error));
+            res.json(trip, points);
         }
       })
       .catch(error => next(error));
@@ -42,9 +77,8 @@ module.exports.detail = (req, res, next) => {
             description: req.body.description,
             gallery: req.body.gallery,
             tags: req.body.tags,
-            pointOfInterest: req.body.pointOfInterest
-          });
-  
+          })
+
           trip.save()
             .then(() => {
               res.json(trip);
@@ -62,3 +96,6 @@ module.exports.detail = (req, res, next) => {
       })
       .catch(error => next(error));
   }
+
+
+  

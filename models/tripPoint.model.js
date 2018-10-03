@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const tripPointSchema = new mongoose.Schema({
   trip: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'Trip',
     required: 'Trip is required'
   },
   pointOfInterest: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'PointOfInterest',
     required: 'PointOfInterest is required'
   },
-  type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
 }, { 
   timestamps: true,
   toJSON: {
@@ -25,4 +25,4 @@ const tripPointSchema = new mongoose.Schema({
 
 
 const tripPoint = mongoose.model('TripPoint', tripPointSchema);
-module.exports = tripPoint; 
+module.exports = tripPoint;

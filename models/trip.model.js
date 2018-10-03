@@ -1,29 +1,33 @@
 const mongoose = require('mongoose');
 
  const tripSchema = new mongoose.Schema({
-  originCity: {
+  originPlace: {
     type: String,
     required: 'Origin city is required'
   },
-  destinationCity: {
+  destinationPlace: {
     type: String,
     required: 'Destination city is required'
   },
-  originLatitude: {
-    type: Number,
-    required: 'Origin latitude is required'
+  originLocation: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+    }
   },
-  destinationLatitude: {
-    type: Number,
-    required: 'Destination latitude is required'
-  },
-  originLongitude: {
-    type: Number,
-    required: 'Origin longitude is required'
-  },
-  destinationLongitude: {
-    type: Number,
-    required: 'Destination longitude is required'
+  destionationLocation: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+    }
   },
   name: {
     type: String,
@@ -45,10 +49,6 @@ const mongoose = require('mongoose');
     ref: 'User',
     required: [true, `Point of interest needs a user`]
   },
-  pointOfInterest: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'PointOfInterest'
-  }
 }, { 
   timestamps: true,
   toJSON: {
