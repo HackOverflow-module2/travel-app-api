@@ -19,7 +19,7 @@ const mongoose = require('mongoose');
       type: [Number],
     }
   },
-  destionationLocation: {
+  destinationLocation: {
     type: {
       type: String,
       enum: ['Point'],
@@ -60,5 +60,5 @@ const mongoose = require('mongoose');
     }
   }
 });
- const trip = mongoose.model('PointOfInterest', tripSchema);
+ const trip = mongoose.model('Trip', tripSchema);
 module.exports = trip;  

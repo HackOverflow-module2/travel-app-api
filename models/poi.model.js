@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 
 const pointOfInterestSchema = new mongoose.Schema({
-  latitude: {
-    type: Number,
-    required: 'Latitude is required'
+  location: {
+    type: {
+      type: String,
+      enum: ['Point'],
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    },
   },
-  longitude: {
-    type: Number,
-    required: 'Longitude is required'
-  },
-  poiType: {
+  poiTypes: {
     type: [String],
     default: []
   },
@@ -27,11 +30,6 @@ const pointOfInterestSchema = new mongoose.Schema({
   tags: {
     type: [String],
     default: []
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: [true, `Point of interest needs a user`]
   }
 }, { 
   timestamps: true,
