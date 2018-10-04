@@ -1,5 +1,5 @@
 const Trip = require('../models/trip.model');
-const Tripint = require('../models/tripPoint.model');
+const TripPoint = require('../models/tripPoint.model');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
@@ -16,7 +16,7 @@ module.exports.create = (req, res, next) => {
     });
 
     const tripPoints = req.body.pointOfInteres.map(poi => {
-        new Trip({
+        new TripPoint({
             trip: req.body._id,
             pointOfInteres: poi._id
         })
@@ -39,7 +39,7 @@ module.exports.create = (req, res, next) => {
 
 
 module.exports.detail = (req, res, next) => {
-    User.findById(req.params.id)
+    Trip.findById(req.params.id)
       .then(trip => {
         if(!trip){
           throw createError(404, 'User not found');
@@ -50,9 +50,9 @@ module.exports.detail = (req, res, next) => {
                 .then(tripPoints => {
                   const points = tripPoints
                   .map(tripPoint => tripPoint.point);
+                  res.json(trip, points);
                 })
                 .catch(error => next(error));
-            res.json(trip, points);
         }
       })
       .catch(error => next(error));
