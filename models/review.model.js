@@ -2,15 +2,19 @@ const mongoose = require('mongoose');
 
 const reviewSchema =  new mongoose.Schema({
   rating: {
-    type: Number
+    type: Number,
+    range: {
+      min: { type: Number, min: 1 },
+      max: { type: Number, max: 5 }
+    }
   },
   title: {
     type: Number,
-    required: 'Lattitude is required'
+    required: 'Title is required'
   },
   description: {
     type: Number,
-    required: 'Lattitude is required'
+    required: 'Description is required'
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
