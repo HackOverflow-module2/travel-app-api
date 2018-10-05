@@ -13,20 +13,22 @@ const mongoose = require('mongoose');
     type: {
       type: String,
       enum: ['Point'],
-      default: 'Point'
+      default: 'Point',
     },
     coordinates: {
       type: [Number],
+      required: true
     }
   },
   destionationLocation: {
     type: {
       type: String,
       enum: ['Point'],
-      default: 'Point'
+      default: 'Point',
     },
     coordinates: {
       type: [Number],
+      required: true
     }
   },
   name: {
@@ -47,8 +49,13 @@ const mongoose = require('mongoose');
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: [true, `Point of interest needs a user`]
+    required: [true, `Trip needs a user`]
   },
+  pointOfInterest: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PointOfInterest',
+    required: [true, `Trip needs a PointOfInterest`]
+  }
 }, { 
   timestamps: true,
   toJSON: {
@@ -60,5 +67,6 @@ const mongoose = require('mongoose');
     }
   }
 });
- const trip = mongoose.model('PointOfInterest', tripSchema);
+
+const trip = mongoose.model('Trip', tripSchema);
 module.exports = trip;  
