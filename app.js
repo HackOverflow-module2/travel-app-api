@@ -14,6 +14,7 @@ require('dotenv').config();
 
 const usersRouter = require('./routes/users.routes');
 const sessionsRouter = require('./routes/sessions.routes');
+const reviewsRouter = require('./routes/reviews.routes');
 const tripsRouter = require('./routes/trips.routes');
 const poisRouter = require('./routes/pois.routes');
 
@@ -39,9 +40,9 @@ app.use(passport.session());
 
 app.use('/users', usersRouter);
 app.use('/sessions', sessionsRouter);
+app.use('/reviews', reviewsRouter);
 app.use('/trips', tripsRouter);
 app.use('/pois', poisRouter);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
