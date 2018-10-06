@@ -16,16 +16,12 @@ module.exports.create = (req, res, next) => {
             }
           }
 
-          poi.save()
+          return poi.save()
+          .populate('user')
             .then(poi => {
-              poi.populate('user')
-                
+              poi.user.rating++;
               res.status(201).json(poi)
             })
-            .catch(error => {
-              next(error)
-            })
-          
         }
       })    
       .catch(error => next(error))
