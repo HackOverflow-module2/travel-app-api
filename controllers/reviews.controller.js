@@ -5,13 +5,11 @@ const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {
 
-    Poi.findById(req.body.poi)
+    Poi.findByIdAndUpdate(req.body.poi, { $inc: {rating: req.body.rating} })
         .then(poi => {
             if(!poi) {
                 throw createError(404, 'Poi not found');
             } else {
-                poi.rating = (req.body.rating + poi.rating);
-
                 const review = new Review(req.body)
                 review.save()
                     .then(review => {
