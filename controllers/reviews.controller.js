@@ -10,14 +10,14 @@ module.exports.create = (req, res, next) => {
             if(!poi) {
                 throw createError(404, 'Poi not found');
             } else {
-                poi.rating = (req.body.rating + poi.rating);
-
                 const review = new Review(req.body)
-                review.save()
+                return review.save()
                     .then(review => {
-                        res.status(201).json(review)
+                        return poi.update( { $inc: {rating: req.body.rating} } )
+                            .then(poi => {
+                                res.status(201).json(review)
+                            })
                     })
-                    .catch(error => next(error));
               }
         })
         .catch(error => next(error));
@@ -28,3 +28,4 @@ module.exports.create = (req, res, next) => {
         .then(reviews => res.json(reviews))
         .catch(error => next(error));
   }
+

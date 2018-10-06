@@ -15,8 +15,7 @@ router.get('/:id',
 
 router.post(
   '/:id',
-  authMiddleware.isAuthenticated,
-  user.isMe(),
+  // authMiddleware.isMe,
   uploader.single('image'),
   users.edit
 );

@@ -17,7 +17,7 @@ module.exports.isMe = (req, res, next) => {
 }
 
 module.exports.isOwner = (post) => {
-    (req, res, next) => {
+    return (req, res, next) => {
     post.findById(req.params.id)
     .populate('user')
         .then(result => {

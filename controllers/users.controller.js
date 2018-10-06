@@ -1,6 +1,8 @@
 const User = require('../models/user.model');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
+const Trip = require('../models/trip.model');
+const Poi = require('../models/poi.model');
 
 module.exports.create = (req, res, next) => {
   User.findOne({ email: req.body.email })
@@ -29,30 +31,20 @@ module.exports.detail = (req, res, next) => {
       if(!user){
         throw createError(404, 'User not found');
       } else {
-        res.json(user)
+        const tripPromise = Trip.find( {user: user.id} )
+        const poiPromise = Poi.find( {user: user.id} )
+
+        Promise.all([tripPromise, poiPromise])
+          .then(([trips, pois])=> {
+            res.json(user, trips, pois)
+          })
+          .catch(error => next(error));
       }
     })
     .catch(error => next(error));
   }
 
 module.exports.edit = (req, res, next) => {
-
-  // add in later to edit photo
-  /*if (req.file) {
-    updateSet.photoPath = `/images/profile-photos/${req.file.filename}`;
-  }*/
-
-    //alternative for edit/update, using an object assign
- /* 
- 
-  const updateSet = {
-    name: req.body.name,
-    surname: req.body.surname,
-  }
- 
-  User.findByIdAndUpdate(id, { $set: updateSet }, {runValidators: true, new: true })
-    .then((user) => {})
-    .catch(error => next(error))*/
 
     const id = req.params.id;
 

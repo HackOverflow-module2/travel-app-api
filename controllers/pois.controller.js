@@ -1,4 +1,5 @@
 const Poi = require('../models/poi.model');
+const User = require('../models/user.model');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
@@ -16,14 +17,17 @@ module.exports.create = (req, res, next) => {
             }
           }
 
-          poi.save()
+          return poi.save()
             .then(poi => {
-              res.status(201).json(poi)
+             return User.findByIdAndUpdate(req.user._id, { $inc: {rating: 1} })
+                .then(user => {
+                  if(!user) {
+                    throw createError(404, 'User not found');
+                  } else {
+                    res.status(201).json(poi)
+                  }
+                })
             })
-            .catch(error => {
-              next(error)
-            })
-          
         }
       })    
       .catch(error => next(error))
