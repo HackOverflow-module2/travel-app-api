@@ -11,9 +11,11 @@ router.post('/',
 router.get('/:id', authMiddleware.isAuthenticated, users.detail);
 
 router.post(
-'/:id',
-//insert middlewares here- authenticated, owner and photo upload
-users.edit
+  '/:id',
+  authMiddleware.isAuthenticated,
+  user.isMe(),
+  uploader.single('image'),
+  users.edit
 );
 
 module.exports = router;
