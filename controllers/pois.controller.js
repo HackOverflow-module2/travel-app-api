@@ -62,6 +62,7 @@ module.exports.edit = (req, res, next) => {
           description: req.body.description,
           location: req.body.location,
           tags: req.body.tags,
+          
         })
 
         if (req.files) {

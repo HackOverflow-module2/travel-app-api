@@ -30,6 +30,11 @@ const poiSchema = new mongoose.Schema({
   tags: {
     type: [String],
     default: []
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, `Trip needs a user`]
   }
 }, { 
   timestamps: true,
