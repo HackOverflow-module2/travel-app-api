@@ -41,7 +41,6 @@ module.exports.list = (req, res, next) => {
   
 module.exports.edit = (req, res, next) => {
 
-    console.info('COSAS -> ', req)
     const id = req.params.id;
 
     Trip.findById(id)

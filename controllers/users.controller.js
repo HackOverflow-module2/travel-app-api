@@ -1,6 +1,8 @@
 const User = require('../models/user.model');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
+const Trip = require('../models/trip.model');
+const Poi = require('../models/poi.model');
 
 module.exports.create = (req, res, next) => {
   User.findOne({ email: req.body.email })
