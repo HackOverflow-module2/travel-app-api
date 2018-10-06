@@ -31,6 +31,10 @@ const userSchema =  new mongoose.Schema({
   tags: [{
     type: String
   }],
+  rating: {
+    type: Number,
+    default: 0
+  },
   role: {
     type: String,
     enum: [constants.ROLE_ADMIN, constants.ROLE_GUEST],

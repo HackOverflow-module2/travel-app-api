@@ -18,6 +18,8 @@ module.exports.create = (req, res, next) => {
 
           poi.save()
             .then(poi => {
+              poi.populate('user')
+                
               res.status(201).json(poi)
             })
             .catch(error => {

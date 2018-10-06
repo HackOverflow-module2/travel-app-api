@@ -3,10 +3,8 @@ const mongoose = require('mongoose');
 const reviewSchema =  new mongoose.Schema({
   rating: {
     type: Number,
-    range: {
-      min: { type: Number, min: 1 },
-      max: { type: Number, max: 5 }
-    }
+      min: 1,
+      max: 5 
   },
   title: {
     type: Number,
