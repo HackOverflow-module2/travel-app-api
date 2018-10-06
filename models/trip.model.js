@@ -20,7 +20,7 @@ const mongoose = require('mongoose');
       required: true
     }
   },
-  destionationLocation: {
+  destinationLocation: {
     type: {
       type: String,
       enum: ['Point'],

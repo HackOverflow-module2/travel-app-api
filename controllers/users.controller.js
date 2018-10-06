@@ -10,10 +10,6 @@ module.exports.create = (req, res, next) => {
       } else {
         user = new User(req.body);
 
-        if (req.files) {
-          user.image = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
-        }
-
         user.save()
           .then(user => {
             res.status(201).json(user)
@@ -67,8 +63,12 @@ module.exports.edit = (req, res, next) => {
           firstName: req.body.firstName,
           surname: req.body.surname,
           password: req.body.password,
-          image: req.body.image
+          tags: req.body.tags
         });
+
+        if (req.files) {
+          user.image = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+        }
 
         user.save()
           .then(() => {
