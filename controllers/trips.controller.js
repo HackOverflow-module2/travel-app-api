@@ -12,7 +12,7 @@ module.exports.create = (req, res, next) => {
       description: req.body.description,
       user: req.user,
       tags: req.body.tags,
-      pointOfInterest: req.body.pointOfInterest
+      poi: req.body.poi
     });
     
     if (req.files) {

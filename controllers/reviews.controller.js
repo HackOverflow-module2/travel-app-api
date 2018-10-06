@@ -1,16 +1,16 @@
 const Review = require('../models/review.model');
-const PointOfInterest = require('../models/poi.model');
+const Poi = require('../models/poi.model');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {
 
-    PointOfInterest.find(req.body.pointOfInterest)
-        .then(pointOfInterest => {
-            if(!pointOfInterest) {
+    Poi.find(req.body.poi)
+        .then(poi => {
+            if(!poi) {
                 throw createError(404, 'Poi not found');
             } else {
-                pointOfInterest.rating = (req.body.rating + pointOfInterest.rating);
+                poi.rating = (req.body.rating + poi.rating);
 
                 const review = new Review(req.body)
                 review.save()

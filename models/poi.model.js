@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const pointOfInterestSchema = new mongoose.Schema({
+const poiSchema = new mongoose.Schema({
   location: {
     type: {
       type: String,
@@ -44,5 +44,5 @@ const pointOfInterestSchema = new mongoose.Schema({
 });
 
 
-const pointOfInterest = mongoose.model('PointOfInterest', pointOfInterestSchema);
-module.exports = pointOfInterest; 
+const poi = mongoose.model('Poi', poiSchema);
+module.exports = poi; 

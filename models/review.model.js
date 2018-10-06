@@ -21,10 +21,10 @@ const reviewSchema =  new mongoose.Schema({
     ref: 'User',
     required: [true, `Review needs a user`]
   },
-  pointOfInterest: {
+  poi: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'pointOfInterest',
-    required: [true, `Review needs a pointOfInterest`]
+    ref: 'poi',
+    required: [true, `Review needs a point of interest`]
   }
 }, { 
   timestamps: true,
