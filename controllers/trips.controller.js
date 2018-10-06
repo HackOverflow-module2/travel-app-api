@@ -1,41 +1,32 @@
 const Trip = require('../models/trip.model');
-const TripPoint = require('../models/tripPoint.model');
 const createError = require('http-errors');
 const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {    
     const trip = new Trip({
-        originPlace: req.body.originPlace,
-        destinationPlace:req.body.destinationPlace,
-        originLocation: req.body.originLocation,
-        destionationLocation: req.body.destionationLocation,
-        name: req.body.name,
-        gallery: req.file,
-        tags: req.body.tags,
-        user: req.user._id
+      originPlace: req.body.originPlace,
+      destinationPlace: req.body.destinationPlace,
+      originLocation: req.body.taoriginLocationgs,
+      destinationLocation: req.body.destinationLocation,
+      name: req.body.name,
+      description: req.body.description,
+      user: req.user,
+      tags: req.body.tags,
+      pointOfInterest: req.body.pointOfInterest
     });
+    
+    if (req.files) {
+      for (const file of req.files) {
+        trip.gallery.push(`${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
+      }
+    }
 
-    const tripPoints = req.body.pointOfInteres.map(poi => {
-        new TripPoint({
-            trip: req.body._id,
-            pointOfInteres: poi._id
+    trip.save()
+      .then(trip => {
+        res.status(201).json(trip);
         })
-    })
-   
-    const tripPromise = trip.save();
-    const tripPointsPromise = tripPoints.map(tripPoint => {
-        tripPoint.save();
-    })
-
-    const allThePromises = tripPointsPromise.unshift(tripPromise);
-
-    Promise.all(allThePromises)
-        .then(results => {
-            res.status(201).json(results[0]);
-        })
-        .catch(error => next(error));
+      .catch(error => next(error));
 }
-
 
 
 module.exports.detail = (req, res, next) => {
@@ -44,19 +35,12 @@ module.exports.detail = (req, res, next) => {
         if(!trip){
           throw createError(404, 'User not found');
         } else {
-            const t = trip;
-            TripPoint.find( {trip: t} )
-            .populate('pointOfInterest')
-                .then(tripPoints => {
-                  const points = tripPoints
-                  .map(tripPoint => tripPoint.point);
-                  res.json(trip, points);
-                })
-                .catch(error => next(error));
+          res.json(trip);
         }
-      })
+      })   
       .catch(error => next(error));
 }
+
 
   module.exports.list = (req, res, next) => {
     Trip.find()
@@ -75,9 +59,14 @@ module.exports.detail = (req, res, next) => {
           Object.assign(trip, {
             name: req.body.name,
             description: req.body.description,
-            gallery: req.body.gallery,
             tags: req.body.tags,
           })
+
+          if (req.files) {
+            for (const file of req.files) {
+              trip.gallery.push(`${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
+            }
+          }
 
           trip.save()
             .then(() => {
