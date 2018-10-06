@@ -3,17 +3,7 @@ const createError = require('http-errors');
 const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {    
-    const trip = new Trip({
-      originPlace: req.body.originPlace,
-      destinationPlace: req.body.destinationPlace,
-      originLocation: req.body.taoriginLocationgs,
-      destinationLocation: req.body.destinationLocation,
-      name: req.body.name,
-      description: req.body.description,
-      user: req.user,
-      tags: req.body.tags,
-      poi: req.body.poi
-    });
+    const trip = new Trip(req.body);
     
     if (req.files) {
       for (const file of req.files) {
