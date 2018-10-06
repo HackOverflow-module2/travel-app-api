@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {
 
-    Poi.find(req.body.poi)
+    Poi.findById(req.body.poi)
         .then(poi => {
             if(!poi) {
                 throw createError(404, 'Poi not found');

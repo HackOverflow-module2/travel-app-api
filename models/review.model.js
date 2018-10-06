@@ -9,11 +9,11 @@ const reviewSchema =  new mongoose.Schema({
     }
   },
   title: {
-    type: Number,
+    type: String,
     required: 'Title is required'
   },
   description: {
-    type: Number,
+    type: String,
     required: 'Description is required'
   },
   user: {
