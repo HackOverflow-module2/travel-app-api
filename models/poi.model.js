@@ -34,7 +34,7 @@ const poiSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: [true, `Trip needs a user`]
+    required: [true, `Point of interest needs a user`]
   }
 }, { 
   timestamps: true,
