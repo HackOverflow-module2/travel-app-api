@@ -32,49 +32,50 @@ module.exports.detail = (req, res, next) => {
 }
 
 
-  module.exports.list = (req, res, next) => {
-    Trip.find()
-      .then(trips => res.json(trips))
-      .catch(error => next(error));
+module.exports.list = (req, res, next) => {
+  Trip.find()
+    .then(trips => res.json(trips))
+    .catch(error => next(error));
 }
 
   
-  module.exports.edit = (req, res, next) => {
-  
-      const id = req.params.id;
-  
-      Trip.findById(id)
-      .then(trip => {
-        if (trip) {
-          Object.assign(trip, {
-            name: req.body.name,
-            description: req.body.description,
-            tags: req.body.tags,
-          })
+module.exports.edit = (req, res, next) => {
 
-          if (req.files) {
-            for (const file of req.files) {
-              trip.gallery.push(`${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
-            }
+    console.info('COSAS -> ', req)
+    const id = req.params.id;
+
+    Trip.findById(id)
+    .then(trip => {
+      if (trip) {
+        Object.assign(trip, {
+          name: req.body.name,
+          description: req.body.description,
+          tags: req.body.tags,
+        })
+
+        if (req.files) {
+          for (const file of req.files) {
+            trip.gallery.push(`${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
           }
-
-          trip.save()
-            .then(() => {
-              res.json(trip);
-            })
-            .catch(error => {
-              if (error instanceof mongoose.Error.ValidationError) {
-                next(createError(400, error.errors));
-              } else {
-                next(error);
-              }
-            })
-        } else {
-          next(createError(404, `Trip with id ${id} not found`));
         }
-      })
-      .catch(error => next(error));
-  }
+
+        trip.save()
+          .then(() => {
+            res.json(trip);
+          })
+          .catch(error => {
+            if (error instanceof mongoose.Error.ValidationError) {
+              next(createError(400, error.errors));
+            } else {
+              next(error);
+            }
+          })
+      } else {
+        next(createError(404, `Trip with id ${id} not found`));
+      }
+    })
+    .catch(error => next(error));
+}
 
 
   
