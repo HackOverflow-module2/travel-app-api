@@ -5,17 +5,19 @@ const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {
 
-    Poi.findByIdAndUpdate(req.body.poi, { $inc: {rating: req.body.rating} })
+    Poi.findById(req.body.poi)
         .then(poi => {
             if(!poi) {
                 throw createError(404, 'Poi not found');
             } else {
                 const review = new Review(req.body)
-                review.save()
+                return review.save()
                     .then(review => {
-                        res.status(201).json(review)
+                        return poi.update( { $inc: {rating: req.body.rating} } )
+                            .then(poi => {
+                                res.status(201).json(review)
+                            })
                     })
-                    .catch(error => next(error));
               }
         })
         .catch(error => next(error));
@@ -26,3 +28,4 @@ module.exports.create = (req, res, next) => {
         .then(reviews => res.json(reviews))
         .catch(error => next(error));
   }
+
