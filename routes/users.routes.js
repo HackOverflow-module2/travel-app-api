@@ -8,7 +8,10 @@ router.post('/',
   uploader.single('image'),
   users.create
 );
-router.get('/:id', authMiddleware.isAuthenticated, users.detail);
+router.get('/:id', 
+  authMiddleware.isAuthenticated,
+  users.detail
+);
 
 router.post(
   '/:id',
