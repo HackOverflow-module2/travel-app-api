@@ -12,7 +12,7 @@ const poiSchema = new mongoose.Schema({
       required: true
     },
   },
-  poiTypes: {
+  poiType: {
     type: String,
     required: 'poiType is required'
   },
