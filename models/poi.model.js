@@ -13,8 +13,8 @@ const poiSchema = new mongoose.Schema({
     },
   },
   poiTypes: {
-    type: [String],
-    default: []
+    type: String,
+    required: 'poiType is required'
   },
   name: {
     type: String,
