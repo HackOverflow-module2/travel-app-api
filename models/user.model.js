@@ -14,7 +14,8 @@ const userSchema =  new mongoose.Schema({
     required: "surname is required"
   },
   image: {
-    type: String
+    type: String,
+    default: "https://www.ienglishstatus.com/wp-content/uploads/2018/04/Sad-Profile-Pic-for-Whatsapp.png"
   },
   email: {
     type: String,

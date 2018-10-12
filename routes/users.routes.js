@@ -5,7 +5,6 @@ const authMiddleware = require('../middlewares/auth.middleware');
 const uploader = require('../config/multer.config');
 
 router.post('/',
-  uploader.single('image'),
   users.create
 );
 router.get('/:id', 
