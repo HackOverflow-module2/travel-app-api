@@ -10,6 +10,7 @@ module.exports.create = (req, res, next) => {
           throw createError(409, `Point of interest already exists`)
         } else {
           poi = new Poi(req.body);
+          poi.user = req.user.id;
 
           if (req.files) {
             for (const file of req.files) {
