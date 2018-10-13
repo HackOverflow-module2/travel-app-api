@@ -4,10 +4,10 @@ const reviews = require('../controllers/reviews.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 
 router.post(
-  '/', 
+  '/:id', 
   authMiddleware.isAuthenticated,
   reviews.create
 );
-router.get('/list', reviews.list);
+router.get('/:id/list', reviews.list);
 
 module.exports = router;

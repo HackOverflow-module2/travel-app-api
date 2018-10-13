@@ -5,14 +5,16 @@ const mongoose = require('mongoose');
 
 module.exports.create = (req, res, next) => {
 
-    Poi.findById(req.body.poi)
+    const poiId = req.params.id;
+    debugger;
+    Poi.findById(poiId)
         .then(poi => {
             if(!poi) {
                 throw createError(404, 'Poi not found');
             } else {
                 const review = new Review(req.body)
                 review.user = req.user;
-                review.poi = req.body.poi;
+                review.poi = poiId;
 
                 return review.save()
                     .then(review => {
@@ -27,8 +29,16 @@ module.exports.create = (req, res, next) => {
 }
 
   module.exports.list = (req, res, next) => {
-    Review.find()
-        .then(reviews => res.json(reviews))
+    const poiId = req.params.id;
+    Poi.findById(poiId)
+        .then(poi => {
+            if(!poi) {
+                throw createError(404, 'Poi not found');
+            } else {
+               return Review.find( {poi: poiId} )
+                    .then(reviews => res.json(reviews))
+            }
+        })
         .catch(error => next(error));
   }
 
