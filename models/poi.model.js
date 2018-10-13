@@ -14,6 +14,7 @@ const poiSchema = new mongoose.Schema({
   },
   poiType: {
     type: String,
+    enum: ['Museum', 'Town', 'Monument', 'Scenary', 'Walk'],  
     required: 'poiType is required'
   },
   name: {
