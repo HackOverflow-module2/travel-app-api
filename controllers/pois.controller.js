@@ -12,6 +12,10 @@ module.exports.create = (req, res, next) => {
           poi = new Poi(req.body);
           poi.user = req.user.id;
 
+          poi.location = {
+            coordinates: req.body.location
+          }
+
           if (req.files) {
             for (const file of req.files) {
               poi.gallery.push(`${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
@@ -61,11 +65,14 @@ module.exports.edit = (req, res, next) => {
     Poi.findById(id)
     .then(poi => {
       if (poi) {
+        const location = {
+          coordinates: req.body.location
+        }
         Object.assign(poi, {
           name: req.body.name,
           poiTypes: req.body.poiTypes,
           description: req.body.description,
-          location: req.body.location,
+          location: location,
           tags: req.body.tags,
           
         })

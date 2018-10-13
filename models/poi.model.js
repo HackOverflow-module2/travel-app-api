@@ -47,6 +47,11 @@ const poiSchema = new mongoose.Schema({
       ret.id = doc._id;
       delete ret._id;
       delete ret.__v;
+      
+      const coordinates = ret.location.coordinates;
+      delete ret.location;
+      ret.location = coordinates;
+      
       return ret;
     }
   }
