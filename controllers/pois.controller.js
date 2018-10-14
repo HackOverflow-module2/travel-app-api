@@ -70,7 +70,7 @@ module.exports.edit = (req, res, next) => {
         }
         Object.assign(poi, {
           name: req.body.name,
-          poiTypes: req.body.poiTypes,
+          poiType: req.body.poiType,
           description: req.body.description,
           location: location,
           tags: req.body.tags,
