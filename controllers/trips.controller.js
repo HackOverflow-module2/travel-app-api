@@ -6,6 +6,14 @@ module.exports.create = (req, res, next) => {
     const trip = new Trip(req.body);
     trip.user = req.user.id;
 
+    trip.originLocation = {
+      coordinates: req.body.originLocation
+    }
+
+    trip.destinationLocation = {
+      coordinates: req.body.destinationLocation
+    }
+
     if (req.files) {
       for (const file of req.files) {
         trip.gallery.push(`${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
@@ -52,6 +60,14 @@ module.exports.edit = (req, res, next) => {
           description: req.body.description,
           tags: req.body.tags,
         })
+
+        trip.originLocation = {
+          coordinates: req.body.originLocation
+        }
+    
+        trip.destinationLocation = {
+          coordinates: req.body.destinationLocation
+        }
 
         if (req.files) {
           for (const file of req.files) {
