@@ -2,12 +2,10 @@ const mongoose = require('mongoose');
 
  const tripSchema = new mongoose.Schema({
   originPlace: {
-    type: String,
-    required: 'Origin city is required'
+    type: String
   },
   destinationPlace: {
-    type: String,
-    required: 'Destination city is required'
+    type: String
   },
   originLocation: {
     type: {
