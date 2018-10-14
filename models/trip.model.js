@@ -51,10 +51,9 @@ const mongoose = require('mongoose');
     ref: 'User',
     required: [true, `Trip needs a user`]
   },
-  poi: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Poi',
-    required: [true, `Trip needs a Point of interest`]
+  pois: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Poi'
   }
 }, { 
   timestamps: true,
