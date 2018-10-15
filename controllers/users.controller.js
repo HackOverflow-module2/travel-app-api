@@ -44,39 +44,63 @@ module.exports.detail = (req, res, next) => {
     .catch(error => next(error));
   }
 
+// module.exports.edit = (req, res, next) => {
+
+//     const id = req.params.id;
+
+//     User.findById(id)
+//     .then(user => {
+//       if (user) {
+//         Object.assign(user, {
+//           firstName: req.body.firstName,
+//           surname: req.body.surname,
+//           tags: req.body.tags
+//         });
+
+//         if (req.files) {
+//           user.image = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
+//         }
+
+//         user.save()
+//           .then(() => {
+//             res.json(user);
+//           })
+//           .catch(error => {
+//             if (error instanceof mongoose.Error.ValidationError) {
+//               next(createError(400, error.errors));
+//             } else {
+//               next(error);
+//             }
+//           })
+//       } else {
+//         next(createError(404, `User with id ${id} not found`));
+//       }
+//     })
+//     .catch(error => next(error));
+// }
+
 module.exports.edit = (req, res, next) => {
 
-    const id = req.params.id;
+  const id = req.params.id;
+  const updateSet = {
+    firstName: req.body.firstName,
+    surname: req.body.surname,
+    tags: req.body.tags,
+  };
 
-    User.findById(id)
+  if (req.file) {
+    console.log('file --> ', `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`)
+    updateSet.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+ 
+  }
+
+  User.findByIdAndUpdate(id, { $set: updateSet }, {runValidators: true, new: true })
     .then(user => {
-      if (user) {
-        Object.assign(user, {
-          firstName: req.body.firstName,
-          surname: req.body.surname,
-          password: req.body.password,
-          tags: req.body.tags
-        });
-
-        if (req.files) {
-          user.image = `${req.protocol}://${req.get('host')}/uploads/${file.filename}`;
-        }
-
-        user.save()
-          .then(() => {
-            res.json(user);
-          })
-          .catch(error => {
-            if (error instanceof mongoose.Error.ValidationError) {
-              next(createError(400, error.errors));
-            } else {
-              next(error);
-            }
-          })
+      if (!user) {
+        throw createError(404, 'User not found')
       } else {
-        next(createError(404, `User with id ${id} not found`));
+        res.json(user);
       }
     })
     .catch(error => next(error));
 }
-
