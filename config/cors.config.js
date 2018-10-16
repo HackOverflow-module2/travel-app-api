@@ -1,3 +1,4 @@
+// process.env.CORS_ORIGINS || 
 const originsAllowed = process.env.CORS_ORIGINS || [
     'http://localhost:3000',
     'http://localhost:4200'
@@ -6,6 +7,7 @@ const originsAllowed = process.env.CORS_ORIGINS || [
   module.exports = {
     origin: function(origin, next) {
       const allowed = !origin || originsAllowed.indexOf(origin) !== -1;
+      console.info('ALLOWED? --> ', originsAllowed)
       if (allowed) {
         next(null, allowed);
       } else {

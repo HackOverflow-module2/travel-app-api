@@ -3,6 +3,7 @@ const router = express.Router();
 const users = require('../controllers/users.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const uploader = require('../config/multer.config');
+const uploadCloud = require('../config/cloudinary.js');
 
 router.post('/',
   users.create

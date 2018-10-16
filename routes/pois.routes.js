@@ -5,6 +5,7 @@ const Poi = require('../models/poi.model');
 
 const uploader = require('../config/multer.config');
 const authMiddleware = require('../middlewares/auth.middleware');
+const uploadCloud = require('../config/cloudinary.js');
 
 router.get('/list', pois.list);
 

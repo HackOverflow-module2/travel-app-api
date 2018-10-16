@@ -4,6 +4,7 @@ const trips = require('../controllers/trips.controller');
 const Trip = require('../models/trip.model');
 const authMiddleware = require('../middlewares/auth.middleware');
 const uploader = require('../config/multer.config');
+const uploadCloud = require('../config/cloudinary.js');
 
 router.get('/list', trips.list);
 router.post('/',
