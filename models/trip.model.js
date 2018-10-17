@@ -60,7 +60,6 @@ const mongoose = require('mongoose');
       ret.id = doc._id;
       delete ret._id;
       delete ret.__v;
-      return ret;
 
       const originCoordinates = ret.originLocation.coordinates;
       delete ret.originLocation;
@@ -69,6 +68,9 @@ const mongoose = require('mongoose');
       const destinationCoordinates = ret.destinationLocation.coordinates;
       delete ret.destinationLocation;
       ret.destinationLocation = destinationCoordinates;
+
+      return ret;
+
     }
   }
 });

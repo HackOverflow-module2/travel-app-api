@@ -59,6 +59,7 @@ module.exports.edit = (req, res, next) => {
           name: req.body.name,
           description: req.body.description,
           tags: req.body.tags,
+          pois: req.body.pois
         })
 
         trip.originLocation = {
