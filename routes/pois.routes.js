@@ -12,7 +12,7 @@ router.get('/list', pois.list);
 router.post(
   '/', 
   authMiddleware.isAuthenticated,
-  uploader.array('file'),
+  uploadCloud.array('file'),
   pois.create
 );
 

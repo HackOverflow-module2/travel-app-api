@@ -1,6 +1,7 @@
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 const multer = require('multer');
+const path = require('path');
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
@@ -17,6 +18,7 @@ var storage = cloudinaryStorage({
   }
 });
 
-const uploadCloud = multer({ storage: storage })
+const uploadCloud = multer({ storage: storage });
 //removed this from end of live above .single('file');
 module.exports = uploadCloud;
+
