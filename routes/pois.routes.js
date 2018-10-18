@@ -21,7 +21,7 @@ router.get('/:id', pois.detail);
 router.post(
   '/:id',
   authMiddleware.isOwner(Poi),
-  uploader.array('images'),
+  uploader.array('file'),
   pois.edit
 );
 

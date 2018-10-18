@@ -36,7 +36,12 @@ module.exports.detail = (req, res, next) => {
 
         Promise.all([tripPromise, poiPromise])
           .then(([trips, pois])=> {
-            res.json(user, trips, pois)
+            const allInfo = {
+              user: user,
+              trips: trips,
+              pois: pois
+            }
+            res.json(allInfo);
           })
           .catch(error => next(error));
       }

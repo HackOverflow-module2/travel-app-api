@@ -8,14 +8,14 @@ const uploader = require('../config/multer.config');
 router.get('/list', trips.list);
 router.post('/',
     authMiddleware.isAuthenticated,
-    uploader.array('images'),
+    uploader.array('file'),
     trips.create
 );
 router.get('/:id', trips.detail);
 router.post(
     '/:id',
     authMiddleware.isOwner(Trip),
-    uploader.array('images'),
+    uploader.array('file'),
     trips.edit
 );
 
