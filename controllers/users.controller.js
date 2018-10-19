@@ -94,7 +94,6 @@ module.exports.edit = (req, res, next) => {
   };
 
   if (req.file) {
-    console.log('file --> ', `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`)
     updateSet.image = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
  
   }

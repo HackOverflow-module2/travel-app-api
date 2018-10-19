@@ -58,8 +58,7 @@ module.exports.edit = (req, res, next) => {
         Object.assign(trip, {
           name: req.body.name,
           description: req.body.description,
-          tags: req.body.tags,
-          pois: req.body.pois
+          tags: req.body.tags
         })
 
         trip.originLocation = {
